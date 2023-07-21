@@ -1,50 +1,45 @@
-## ipmi-kvm-docker
+![easy-ipmi-kvm logo](/images/logo.png)
 
-![Docker Image Size (tag)](https://img.shields.io/docker/image-size/solarkennedy/ipmi-kvm-docker/latest)
-![Docker Pulls](https://img.shields.io/docker/pulls/solarkennedy/ipmi-kvm-docker)
+Maintained version of [solarkennedy/ipmi-kvm-docker](https://github.com/solarkennedy/ipmi-kvm-docker) with x32 Java to work with supermicro's iKVM > v3.55
 
-Ever wanted to access and IPMI KVM console, only to find that you don't
-have network access or the right version of java or a compatible
-browser or credentials?
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/evevseev/easy-ipmi-kvm/latest)
+![Docker Pulls](https://img.shields.io/docker/pulls/evevseev/easy-ipmi-kvm)
 
-This container runs:
+## Chnages
+- Current version of noVNC server
+- x32 Java to fix problem with supermicro iKVM > v3.55
+- Revert back to Firefox
 
-* Xvfb - X11 in a virtual framebuffer
-* x11vnc - A VNC server that scrapes the above X11 server
-* [noNVC](https://kanaka.github.io/noVNC/) - A HTML5 canvas vnc viewer
-* Fluxbox - a small window manager
-* Firefox - For browsing IPMI consoles
-* Java-plugin - Because... you need java to access most IPMI KVM Consoles.
+## This container runs
 
-This is a [trusted build](https://registry.hub.docker.com/u/solarkennedy/ipmi-kvm-docker/)
-on the Docker Hub.
+- Xvfb - X11 in a virtual framebuffer
+- x11vnc - A VNC server that scrapes the above X11 server
+- [noNVC](https://kanaka.github.io/noVNC/) - A HTML5 canvas vnc viewer
+- Fluxbox - a small window manager
+- Firefox - For browsing IPMI consoles
+- Icedtea - Java Web Start to access most IPMI KVM Consoles.
 
-## Run It
+## Setting up
+```
+$ docker run -p 8080:8080 evevseev/easy-ipmi-kvm
+open http://admin:8080/vnc.html # or just open in a browser
+```
 
-    # on a remote host that can reach ipmi
-    ssh admin
-    $ docker run -p 8080:8080 solarkennedy/ipmi-kvm-docker
 
-    # Now on your laptop
-    xdg-open http://admin:8080
-    # On a mac
-    open http://admin:8080
-    # Or just open in a browser
+## Custom options
+### Resolution
 
-In your web browser you should see the firefox, ready to connect to
-and IPMI KVM:
+By default, the VNC session will run with a resolution of 1260x700x24 (with 24-bit color depth).
+Custom resolutions can be specified with the docker environment variable RES.
 
-![IPMI Screenshot](https://raw.githubusercontent.com/solarkennedy/ipmi-kvm-docker/master/screenshot.png)
+```$ docker run -p 8080:8080 -e RES=1600x900x24 evevseev/easy-ipmi-kvm```
 
-### Custom resolution
-
-By default, the VNC session will run with a resolution of 1024x768 (with 24-bit color depth).
-Custom resolutions can be specified with the docker environment variable RES, and must include color depth.
-
-    $ docker run -p 8080:8080 -e RES=1600x900x24 solarkennedy/ipmi-kvm-docker
-
-### Mount volume
+### Mount volumes
 
 In case you need to mount floppy/iso images to the machine you can mount a volume to the container.
 
-    $ docker run -p 8080:8080 -v /your/local/folder:/root/images solarkennedy/ipmi-kvm-docker
+```$ docker run -p 8080:8080 -v /your/local/folder:/root/images evevseev/easy-ipmi-kvm```
+
+## Tested on
+
+- Supermicro (`3.55`, `3.62`)
