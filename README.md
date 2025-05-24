@@ -20,6 +20,8 @@ Maintained version of [solarkennedy/ipmi-kvm-docker](https://github.com/solarken
 - Icedtea - Java Web Start to access most IPMI KVM Consoles.
 
 ## Setting up
+
+Read novnc/utils/README.md first, download websockify then run docker build to build docker image, otherwise docker run will start fail.
 ```
 $ docker run -p 8080:8080 evevseev/easy-ipmi-kvm
 open http://admin:8080/vnc.html # or just open in a browser
