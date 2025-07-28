@@ -19,7 +19,7 @@ RUN mkdir -p /root/images
 ADD novnc /root/novnc/
 
 ENV DISPLAY :0
-ENV RES 1260x700x24
+ENV RES 1600x1000x24
 ENV PWD Astrongpassword_123
 
 EXPOSE 8080
