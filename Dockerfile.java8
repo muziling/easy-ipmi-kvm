@@ -5,7 +5,7 @@ LABEL description="Version of solarkennedy/ipmi-kvm-docker x32 Java to work with
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN dpkg --add-architecture i386
-RUN apt-get update && apt-get -y install xvfb x11vnc wget\
+RUN apt-get update && apt-get -y install xvfb x11vnc wget bzip2\
     supervisor fluxbox firefox:i386 libatomic1:i386 icedtea-8-plugin:i386 fonts-noto-cjk && echo Asia/Shanghai > /etc/timezone
 RUN cd /usr/lib && wget https://ftp.mozilla.org/pub/firefox/releases/52.9.0esr/linux-i686/zh-CN/firefox-52.9.0esr.tar.bz2 && tar --extract --overwrite  --bzip2 --file=firefox-52.9.0esr.tar.bz2 && rm -f firefox-52.9.0esr.tar.bz2
 
